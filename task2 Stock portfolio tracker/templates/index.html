@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Portfolio Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        input, button { padding: 10px; margin: 5px 0; }
+        table { border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 8px 12px; }
+    </style>
+</head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Portfolio Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <video autoplay muted loop id="bg-video">
+    <source src="{{ url_for('static', filename='background.mp4') }}" type="video/mp4">
+</video>
+
+
+    <div class="container">
+        <h1>Stock Portfolio Tracker</h1>
+
+    <form method="POST">
+        <label>Stock Symbols (e.g., AAPL,TSLA):</label><br>
+        <input type="text" name="stocks" required><br>
+
+        <label>Quantities (same order as symbols):</label><br>
+        <input type="text" name="quantities" required><br>
+
+        <button type="submit">Calculate</button>
+    </form>
+
+    {% if portfolio %}
+        <h2>Portfolio Summary</h2>
+        <table>
+            <tr>
+                <th>Stock</th>
+                <th>Quantity</th>
+                <th>Price per Share</th>
+                <th>Total Value</th>
+            </tr>
+            {% for item in portfolio %}
+            <tr>
+                <td>{{ item.stock }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.value }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h3>Total Investment: ${{ total }}</h3>
+    {% endif %}
+</body>
+</html>
